@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-// Notice we are importing both from queries.ts now!
-import { GET_CARS, ADD_CAR } from '../graphql/queries'; 
+import { GET_CARS, ADD_CAR } from '../graphql/queries';
 
 export const useCars = () => {
   const { data, loading, error } = useQuery(GET_CARS);
@@ -25,22 +24,22 @@ export const useCars = () => {
   const cars = useMemo(() => {
     if (!data?.cars) return [];
     
-    // 1. Clone the Apollo array to prevent read-only crashes
+    // Clone the Apollo array to prevent read-only crashes
     let processedCars = [...data.cars];
 
-    // 2. Search Filter
+    // Search Filter
     if (searchTerm) {
-      processedCars = processedCars.filter((car) =>
+      processedCars = processedCars.filter((car: any) =>
         car.model?.toLowerCase().includes(searchTerm.toLowerCase()) || 
         car.make?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    // 3. Sorting
+    // Sorting
     if (sortOption === 'year') {
-      processedCars.sort((a, b) => b.year - a.year); // Newest first
+      processedCars.sort((a: any, b: any) => b.year - a.year); // Newest first
     } else if (sortOption === 'make') {
-      processedCars.sort((a, b) => a.make.localeCompare(b.make)); // Alphabetical
+      processedCars.sort((a: any, b: any) => a.make.localeCompare(b.make)); // Alphabetical
     }
 
     return processedCars;

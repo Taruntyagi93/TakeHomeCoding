@@ -32,17 +32,19 @@ export async function healCode(targetDir: string, errorLog: string, projectConte
   }
 
   const systemPrompt = `
-    You are an expert debugger. Review the error log and fix the application code.
-    
+    You are an expert React debugger. The test failed with: "Element type is invalid... got: undefined".
+    This ALWAYS means there is an export mismatch in the UI components. App.tsx is expecting NAMED exports, but the components are using DEFAULT exports.
+
     CRITICAL FIXES REQUIRED:
-    1. In useCars.ts, add null-checks (optional chaining) before calling .toLowerCase(). Example: car.model?.toLowerCase().includes(...)
-    2. Ensure the ADD_CAR mutation exists in src/graphql/mutations.ts and strictly matches types.ts. Create the file if it is missing.
-    3. Ensure Apollo Client is initialized with a proper HttpLink in client.ts.
-    4. YOU ARE STRICTLY FORBIDDEN FROM MODIFYING ANY .test.tsx OR .test.ts FILES. Fix the actual application code instead.
-    
+    1. Read the error. If the error is about a missing export, you MUST fix either "src/components/CarCard.tsx" or "src/components/CarControls.tsx".
+    2. Remove "export default" from the bottom of the file.
+    3. Change the component declaration to a named export. 
+       Example: Change "const CarCard = () => {" to "export const CarCard = () => {"
+    4. NEVER attempt to fix useCars.ts or App.tsx. ONLY fix the UI components.
+
     You must respond in JSON format using this exact schema:
     {
-      "filePath": "src/path/to/file.ts",
+      "filePath": "src/components/CarCard.tsx", 
       "fixedCode": "import React..."
     }
   `;

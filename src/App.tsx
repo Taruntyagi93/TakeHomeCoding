@@ -2,10 +2,10 @@ import React from "react";
 import { Container, Typography, Box, Grid, CircularProgress, Alert } from "@mui/material";
 import { useCars } from "./hooks/useCars";
 import { CarCard } from "./components/CarCard";
-import { CarControls } from "./components/CarControls"; // Red line should be gone now!
+import { CarControls } from "./components/CarControls";
 
 export default function App() {
-  const { cars, loading, error, searchTerm, setSearchTerm, sortOption, setSortOption, addCar } = useCars();
+  const { cars, loading, error, setSearchTerm, setSortOption, addCar } = useCars();
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -13,13 +13,12 @@ export default function App() {
         Car Inventory Manager
       </Typography>
 
-      {/* Passed the exact props your CarControls component is expecting */}
       <CarControls 
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        sortBy={sortOption as any}
-        onSortChange={setSortOption}
-        onAddCar={addCar}
+        onApplySearchSort={(term, sort) => {
+          setSearchTerm(term);
+          setSortOption(sort);
+        }}
+        addCar={addCar}
       />
 
       {loading && <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}><CircularProgress /></Box>}

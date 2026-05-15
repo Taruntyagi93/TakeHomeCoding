@@ -5,7 +5,8 @@ Context: The boilerplate already contains the completed logic files: `App.tsx`, 
 Task: Your ONLY job is to generate the frontend UI components. Generate the following architecture:
 
 1. Car Card Component (`src/components/CarCard.tsx`):
-- MUST be a named export: `export const CarCard = ({ make, model, year, color, mobile, tablet, desktop }: any) => { ... }`
+- CRITICAL: You MUST start your component exactly like this: `export const CarCard = ({ make, model, year, color, mobile, tablet, desktop }: any) => {`
+- DO NOT use `export default`.
 - Use MUI Card components to display the car data.
 - Implement responsive images using MUI's `sx` prop breakpoints. The URLs are passed directly as props.
   - xs (<= 640px): use the `mobile` image URL
@@ -13,7 +14,8 @@ Task: Your ONLY job is to generate the frontend UI components. Generate the foll
   - md (>= 1024px): use the `desktop` image URL
 
 2. Controls Component (`src/components/CarControls.tsx`):
-- MUST be a named export: `export const CarControls = ({ onApplySearchSort, addCar }: { onApplySearchSort: (term: string, sort: string) => void, addCar: (car: any) => Promise<void> }) => { ... }`
+- CRITICAL: You MUST start your component exactly like this: `export const CarControls = ({ onApplySearchSort, addCar }: { onApplySearchSort: (term: string, sort: string) => void, addCar: (newCar: { make: string; model: string; year: number; color: string }) => Promise<void> }) => {`
+- DO NOT use `export default`.
 - Create local state to track draft inputs: `const [draftSearch, setDraftSearch] = useState('')` and `const [draftSort, setDraftSort] = useState('')`.
 - Include a text input for search mapped to `draftSearch`.
 - Include a dropdown to sort by 'year' or 'make' mapped to `draftSort`.

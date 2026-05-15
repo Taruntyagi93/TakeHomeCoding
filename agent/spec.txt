@@ -1,28 +1,27 @@
-Project: Car Inventory Manager
+Project: Car Inventory Manager - Frontend UI Components
 
-Context: The boilerplate already contains the completed logic files: `App.tsx`, `useCars.ts`, and `queries.ts`. DO NOT EDIT OR CREATE THOSE FILES. 
+Context: The core state management and GraphQL integration have been implemented in the boilerplate (`App.tsx`, `useCars.ts`, `queries.ts`). 
+Your task is to implement the UI presentation layer by generating the required React components.
 
-Task: Your ONLY job is to generate the frontend UI components. Generate the following architecture:
+Component Architecture:
 
-1. Car Card Component (`src/components/CarCard.tsx`):
-- CRITICAL: You MUST start your component exactly like this: `export const CarCard = ({ make, model, year, color, mobile, tablet, desktop }: any) => {`
-- DO NOT use `export default`.
-- Use MUI Card components to display the car data.
-- Implement responsive images using MUI's `sx` prop breakpoints. The URLs are passed directly as props.
-  - xs (<= 640px): use the `mobile` image URL
-  - sm (641px - 1023px): use the `tablet` image URL
-  - md (>= 1024px): use the `desktop` image URL
+1. CarCard Component (`src/components/CarCard.tsx`)
+- Export: Named export `CarCard`.
+- Props: Accepts `make`, `model`, `year`, `color`, `mobile`, `tablet`, and `desktop`.
+- UI: Use Material UI `<Card>` to display the vehicle details. 
+- Responsiveness: Map the image URLs directly to MUI `sx` breakpoints for the background image (xs: mobile, sm: tablet, md: desktop).
 
-2. Controls Component (`src/components/CarControls.tsx`):
-- CRITICAL: You MUST start your component exactly like this: `export const CarControls = ({ onApplySearchSort, addCar }: { onApplySearchSort: (term: string, sort: string) => void, addCar: (newCar: { make: string; model: string; year: number; color: string }) => Promise<void> }) => {`
-- DO NOT use `export default`.
-- Create local state to track draft inputs: `const [draftSearch, setDraftSearch] = useState('')` and `const [draftSort, setDraftSort] = useState('')`.
-- Include a text input for search mapped to `draftSearch`.
-- Include a dropdown to sort by 'year' or 'make' mapped to `draftSort`.
-- Include an "Apply" button. When clicked, it MUST call `onApplySearchSort(draftSearch, draftSort)`.
-- Include an "Add Car" button that opens an MUI Dialog.
-- The Add Car Dialog MUST EXPLICITLY have EXACTLY 4 TextFields: "Make", "Model", "Year", and "Color". Submit calls `addCar(newCar)` and closes the modal.
+2. CarControls Component (`src/components/CarControls.tsx`)
+- Export: Named export `CarControls`.
+- Props: `onApplySearchSort: (term: string, sort: string) => void` and `addCar: (newCar: { make: string, model: string, year: number, color: string }) => Promise<void>`.
+- Internal State: Use React `useState` to manage draft inputs for search (string) and sort (string: 'year' or 'make').
+- UI Elements:
+  - Text input for model/make search.
+  - Select dropdown for sorting.
+  - "Apply" button that triggers `onApplySearchSort` with the current draft states.
+  - "Add New Car" button that opens a MUI `<Dialog>`.
+- Dialog Form: Ensure the modal contains exactly 4 TextFields: Make, Model, Year, and Color. Submission should await `addCar`, clear the form, and close the dialog.
 
-TECHNICAL CONSTRAINTS (CRITICAL):
-1. DEPENDENCIES: You are STRICTLY FORBIDDEN from using external form libraries. Use native React `useState`.
-2. NO LOGIC EDITS: Do not generate or modify `App.tsx` or `useCars.ts`. Only generate the components in `src/components/`.
+Technical Constraints:
+- Use standard React hooks (useState). Avoid external form libraries like Formik to reduce bundle size.
+- Restrict modifications to the `src/components/` directory. Rely on the existing `App.tsx` and `useCars.ts` for logic.

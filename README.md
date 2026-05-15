@@ -38,6 +38,8 @@ From the `agent/` directory:
 
 ```bash
 npm install
+# Copy the example env file and add your API key (Gemini, Groq, or OpenRouter)
+cp .env.example .env 
 npm start
 ```
 

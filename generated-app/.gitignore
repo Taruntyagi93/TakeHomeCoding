@@ -5,6 +5,7 @@ jspm_packages/
 # Environment variables (Crucial for privacy)
 agent/.env
 agent/node_modules/
+generated-app/node_modules/
 .env
 .env.local
 .env.development.local

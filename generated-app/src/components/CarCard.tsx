@@ -1,43 +1,39 @@
 import React from 'react';
-import { Card, CardContent, Typography, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
+import { SxProps } from '@mui/system';
 
-export const CarCard = ({ make, model, year, color, mobile, tablet, desktop }: any) => {
+interface CarCardProps {
+  make: string;
+  model: string;
+  year: number;
+  color: string;
+  mobile: string;
+  tablet: string;
+  desktop: string;
+}
+
+export const CarCard: React.FC<CarCardProps> = ({ make, model, year, color, mobile, tablet, desktop }) => {
+  const backgroundImageStyles: SxProps = {
+    backgroundImage: {
+      xs: `url(${mobile})`, // Mobile
+      sm: `url(${tablet})`, // Tablet
+      md: `url(${desktop})`, // Desktop
+    },
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '300px',
+    display: 'flex',
+    alignItems: 'flex-end',
+    color: 'white',
+    padding: '16px',
+  };
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt={`${make} ${model}`}
-        src={mobile}
-        sx={{
-          display: { xs: 'block', sm: 'none' },
-        }}
-      />
-      <CardMedia
-        component="img"
-        alt={`${make} ${model}`}
-        src={tablet}
-        sx={{
-          display: { xs: 'none', sm: 'block', md: 'none' },
-        }}
-      />
-      <CardMedia
-        component="img"
-        alt={`${make} ${model}`}
-        src={desktop}
-        sx={{
-          display: { xs: 'none', md: 'block' },
-        }}
-      />
+    <Card sx={{ ...backgroundImageStyles, position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
       <CardContent>
-        <Typography variant="h5" component="div">
-          {make} {model}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Year: {year}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Color: {color}
-        </Typography>
+        <Typography variant="h5">{`${make} ${model}`}</Typography>
+        <Typography variant="body2">{`Year: ${year}`}</Typography>
+        <Typography variant="body2">{`Color: ${color}`}</Typography>
       </CardContent>
     </Card>
   );
